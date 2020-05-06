@@ -1,0 +1,16 @@
+позволяет соединять оболочки, идет снизу вверх
+import {compose} from 'redux';
+compose(
+    conect(mapStateToProps, mapDispatchToProps),
+    secondContainer,
+    firstContainer
+) (Component);
+
+
+Selectors: 
+    - npm install reselect 
+
+??? validation
+
+??? Redirect
+??? form +++

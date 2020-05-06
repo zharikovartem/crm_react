@@ -1,0 +1,13 @@
+state :
+    1. User {
+        data: {
+            phone: 'phone',
+            password: 'string',
+            name: 'string',
+            id: 'integer,
+            status: 'string'
+        }
+    }
+
+
+Selectors: 

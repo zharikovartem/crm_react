@@ -3,15 +3,35 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import store from './redux/store';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// 8029-3025850 Дмитрий
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+// npx create-react-app ArtCRM
+// npm install react-router-dom 
+// npm install redux 
+// npm install react-redux
+// npm install axios
+// npm install react-bootstrap bootstrap
+
+// npm install --save styled-components prop-types
+
+let rerenderEntireTree = (state) => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+    , document.getElementById('root')
+  );
+};
+
+rerenderEntireTree(store.getState());
+
+store.subscribe(() => {
+  let state = store.getState();
+  rerenderEntireTree(state);
+});
+
 serviceWorker.unregister();
