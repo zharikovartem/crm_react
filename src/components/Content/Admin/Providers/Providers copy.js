@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col, DropdownButton, ButtonGroup, Dropdown, ListGroup, InputGroup } from 'react-bootstrap';
-import ProviderCreate from './ProviderCreate/ProviderCreate';
 
 const Providers = (props) => {
-    const [data, setData] = useState({});
     const [show, setShow] = useState(false);
     const [contactType, addContactTypeTo] = useState([]);
     const [loadType, choisLoadType] = useState(null);
@@ -31,53 +29,6 @@ const Providers = (props) => {
     const [cash, checkCashTo] = useState(false);
     const [bank, checkBankTo] = useState(false);
 
-    const onFieldEdit = (e) => {
-        let newData = {...data};
-        switch (e.target.type) {
-            case 'text':
-                newData[e.currentTarget.id] = e.currentTarget.value;
-                setData(data => newData);
-                break;
-            case 'select-one':
-                newData[e.currentTarget.id] = e.currentTarget.value;
-                setData(data => newData);
-                break;
-
-            case 'number':
-                newData[e.currentTarget.id] = e.currentTarget.value;
-                setData(data => newData);
-                break;
-
-            case 'checkbox':
-                // console.log(e.target.checked);
-                newData[e.currentTarget.id] = e.target.checked;
-                setData(data => newData);
-                break;
-
-            case 'time':
-                // console.log(e.target)
-                newData[e.currentTarget.id] = e.currentTarget.value;
-                setData(data => newData);
-                break;
-        
-            default:
-                console.log(e.target.type);
-                console.log(e.target.value);
-                break;
-        }
-    }
-
-    console.log(data);
-
-    const handleCreate = () => {
-        let data = {
-            mame: 123,
-            title: 456,
-            contactType
-        }
-        console.log(data);
-    }
-
     const checkBank = (e) => {
         console.log(e.target.checked)
         checkBankTo(e.target.checked)
@@ -94,7 +45,7 @@ const Providers = (props) => {
                       Наименование юр. лица
                     </Form.Label>
                     <Col sm={8}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите наименование юридичесского лица" />
+                        <Form.Control type="text" placeholder="Введите наименование юридичесского лица" />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="payAccount">
@@ -102,7 +53,7 @@ const Providers = (props) => {
                        Рассчетный счет
                     </Form.Label>
                     <Col sm={8}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите расчетный счет" />
+                        <Form.Control type="text" placeholder="Введите расчетный счет" />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="bankCode">
@@ -111,7 +62,7 @@ const Providers = (props) => {
                     </Form.Label>
                     <Col sm={8}>
                     <InputGroup className="mb-3">
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите код банка" />
+                        <Form.Control type="text" placeholder="Введите код банка" />
                         <InputGroup.Append>
                             <Button variant="outline-secondary">Получить код</Button>
                         </InputGroup.Append>
@@ -123,7 +74,7 @@ const Providers = (props) => {
                        УНП
                     </Form.Label>
                     <Col sm={8}>
-                        <Form.Control type="number" onChange={onFieldEdit} placeholder="Введите УНП" />
+                        <Form.Control type="number" placeholder="Введите УНП" />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="contractNumber">
@@ -131,7 +82,7 @@ const Providers = (props) => {
                        Номер договора
                     </Form.Label>
                     <Col sm={8}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите номер договора" />
+                        <Form.Control type="text" placeholder="Введите номер договора" />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="contractDate">
@@ -139,7 +90,7 @@ const Providers = (props) => {
                        Дата договора
                     </Form.Label>
                     <Col sm={8}>
-                        <Form.Control type="date" onChange={onFieldEdit} placeholder="Введите дату договора" />
+                        <Form.Control type="date" placeholder="Введите дату договора" />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="adressToBank">
@@ -147,11 +98,11 @@ const Providers = (props) => {
                       Юр. адрес
                     </Form.Label>
                     <Col sm={8}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите адрес" />
+                        <Form.Control type="text" placeholder="Введите адрес" />
                     </Col>
                 </Form.Group>
                 <Form.Group controlId="payWithTax">
-                    <Form.Check type="checkbox" onChange={onFieldEdit} label="оплата с НДС" />
+                    <Form.Check type="checkbox" label="оплата с НДС" onChange="" />
                 </Form.Group>
             </ListGroup.Item>
         );
@@ -173,14 +124,14 @@ const Providers = (props) => {
                 <Col sm={6}>
                 <Form.Check
                     className="mb-2"
-                    type="checkbox" onChange={onFieldEdit}
+                    type="checkbox"
                     label="BYN"
                     name="payTypeBYN"
                     id="payTypeBYN"
                     />
                 <Form.Check
                     className="mb-2"
-                    type="checkbox" onChange={onFieldEdit}
+                    type="checkbox"
                     label="USD"
                     name="payTypeUSD"
                     id="payTypeUSD"
@@ -205,7 +156,6 @@ const Providers = (props) => {
             newState[day] = null;
         }
         ////////console.log(newState)
-        onFieldEdit(e)
         checkTimeToWorckWarhouse(timeToWorckWarhouse => newState);
     }
     let timeToWorckWarhouseBlock = [];
@@ -225,9 +175,7 @@ const Providers = (props) => {
                             </Form.Label >
                         </Col>
                         <Col sm={3}>
-                            <Form.Group controlId={'warhouse_start_'+prop}>
-                                <Form.Control size="sm" type="time" onChange={onFieldEdit} />
-                            </Form.Group>
+                            <Form.Control size="sm" type="time" />
                         </Col>
                         <Col sm={1}>
                             <Form.Label size="sm">
@@ -235,9 +183,7 @@ const Providers = (props) => {
                         </Form.Label>
                         </Col>
                         <Col sm={3}>
-                            <Form.Group controlId={'warhouse_finish_'+prop}>
-                                <Form.Control size="sm" type="time" onChange={onFieldEdit} />
-                            </Form.Group>
+                            <Form.Control size="sm" type="time" />
                         </Col>
                     </Form.Row>
                 </div>
@@ -262,7 +208,6 @@ const Providers = (props) => {
             newState[day] = null;
         }
         //////console.log(newState)
-        onFieldEdit(e)
         checkTimeToWorckOfice(timeToWorckOfice => newState);
     }
     //////console.log(timeToWorckOfice)
@@ -283,7 +228,7 @@ const Providers = (props) => {
                         </Form.Label >
                         </Col>
                         <Col sm={3}>
-                            <Form.Control size="sm" type="time" onChange={onFieldEdit} />
+                            <Form.Control size="sm" type="time" />
                         </Col>
                         <Col sm={1}>
                             <Form.Label size="sm">
@@ -291,7 +236,7 @@ const Providers = (props) => {
                         </Form.Label>
                         </Col>
                         <Col sm={3}>
-                            <Form.Control size="sm" type="time" onChange={onFieldEdit} />
+                            <Form.Control size="sm" type="time" />
                         </Col>
                     </Form.Row>
                 </div>
@@ -304,7 +249,6 @@ const Providers = (props) => {
     }
 
     const warhouseTrue = (e) => {
-        onFieldEdit(e)
         warhouseTrueTo(e.target.checked)
     }
     let warhouseTimeBlock = null;
@@ -410,7 +354,7 @@ const Providers = (props) => {
                         Город
                         </Form.Label>
                     <Col sm={9}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите город" />
+                        <Form.Control type="text" placeholder="Введите город" />
                     </Col>
                 </Form.Group>
                 <Form.Group className="mb-0" as={Row} controlId="warhouseStreet">
@@ -418,7 +362,7 @@ const Providers = (props) => {
                         Улица
                         </Form.Label>
                     <Col sm={9}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите улицу" />
+                        <Form.Control type="text" placeholder="Введите улицу" />
                     </Col>
                 </Form.Group>
                 <Form.Group className="mb-0" as={Row} controlId="warhouseHouse">
@@ -426,7 +370,7 @@ const Providers = (props) => {
                         Дом
                         </Form.Label>
                     <Col sm={9}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите номер дома" />
+                        <Form.Control type="text" placeholder="Введите номер дома" />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="warhouseRoom">
@@ -434,7 +378,7 @@ const Providers = (props) => {
                         Помещение/Офис
                         </Form.Label>
                     <Col sm={9}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите номер помещения" />
+                        <Form.Control type="text" placeholder="Введите номер помещения" />
                     </Col>
                 </Form.Group>
             </div>
@@ -443,7 +387,6 @@ const Providers = (props) => {
 
     const choiseLoadPeriod = (e) => {
         //////console.log(e.target.value);
-        onFieldEdit(e)
         choiseLoadPeriodTo(e.target.value);
     }
 
@@ -456,7 +399,7 @@ const Providers = (props) => {
                         Время получения прайса
                     </Form.Label>
                     <Col sm={4}>
-                        <Form.Control type="time" onChange={onFieldEdit} />
+                        <Form.Control type="time" />
                     </Col>
                     <Col sm={5}>
                         {/* <Form.Control type="checkbox" /> */}
@@ -532,7 +475,6 @@ const Providers = (props) => {
 
     const selectLoadType = (e) => {
         //////console.log(e.target.value);
-        onFieldEdit(e)
         choisLoadType(e.target.value);
     }
     let loadTypeBlock = null;
@@ -545,20 +487,20 @@ const Providers = (props) => {
                     </Form.Label>
                     <Col sm={9}>
                         <InputGroup className="mb-3">
-                            <Form.Control type="text" onChange={onFieldEdit} placeholder='Введите Email'  />
+                            <Form.Control type="text" placeholder='Введите Email' />
                             <InputGroup.Append>
                                 <Button variant="outline-secondary">Список</Button>
                             </InputGroup.Append>
                         </InputGroup>
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} controlId={'fileNameKey'}>
+                <Form.Group as={Row} controlId={'priceNameKey'}>
                     <Form.Label column sm={3}>
                         Ключ навания прайса
                     </Form.Label>
                     <Col sm={9}>
                         <InputGroup className="mb-3">
-                            <Form.Control type="text" onChange={onFieldEdit} placeholder='Введите название'  />
+                            <Form.Control type="text" placeholder='Введите название ' />
                             <InputGroup.Append>
                                 <Button variant="outline-secondary">Варианты</Button>
                             </InputGroup.Append>
@@ -577,7 +519,7 @@ const Providers = (props) => {
                         Parser
                 </Form.Label>
                     <Col sm={9}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder='Введите Parser' />
+                        <Form.Control type="text" placeholder='Введите Parser' />
                     </Col>
                 </Form.Group>
                 <br /> Получить список Парсеров
@@ -592,7 +534,7 @@ const Providers = (props) => {
                         Ссылка на FTP
                     </Form.Label>
                     <Col sm={9}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder='Введите URL' />
+                        <Form.Control type="text" placeholder='Введите URL' />
                     </Col>
                 </Form.Group>
             </div>
@@ -606,7 +548,7 @@ const Providers = (props) => {
                         Ссылка на Google docs
                     </Form.Label>
                     <Col sm={9}>
-                        <Form.Control type="text" onChange={onFieldEdit} placeholder='Введите URL Google docs' />
+                        <Form.Control type="text" placeholder='Введите URL Google docs' />
                     </Col>
                 </Form.Group>
             </div>
@@ -637,15 +579,15 @@ const Providers = (props) => {
                                 Номер телефона {p}
                             </Form.Label>
                             <Col sm={9}>
-                                <Form.Control type="number" onChange={onFieldEdit} placeholder='Введите номер телефона' />
+                                <Form.Control type="number" placeholder='Введите номер телефона' />
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId={'managerName_' + p}>
+                        <Form.Group as={Row} controlId={'cotact' + p + 'manager'}>
                             <Form.Label column sm={3}>
                                 Имя менеджера
                             </Form.Label>
                             <Col sm={9}>
-                                <Form.Control type="text" onChange={onFieldEdit} placeholder='Введите имя менеджера' />
+                                <Form.Control type="text" placeholder='Введите имя менеджера' />
                             </Col>
                         </Form.Group>
                     </div>
@@ -659,7 +601,7 @@ const Providers = (props) => {
                             Логин скайп {s}
                         </Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="text" onChange={onFieldEdit} placeholder='Введите логин скайп' />
+                            <Form.Control type="text" placeholder='Введите логин скайп' />
                         </Col>
                     </Form.Group>
                 );
@@ -673,7 +615,7 @@ const Providers = (props) => {
                             Номер Viber {v}
                         </Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="number" onChange={onFieldEdit} placeholder='Введите номер Viber' />
+                            <Form.Control type="number" placeholder='Введите номер Viber' />
                         </Col>
                     </Form.Group>
                 );
@@ -687,7 +629,7 @@ const Providers = (props) => {
                             Номер Telegram {t}
                         </Form.Label>
                         <Col sm={9}>
-                            <Form.Control type="number" onChange={onFieldEdit} placeholder='Введите номер Telegram' />
+                            <Form.Control type="number" placeholder='Введите номер Telegram' />
                         </Col>
                     </Form.Group>
                 );
@@ -704,7 +646,6 @@ const Providers = (props) => {
         addContactTypeTo([]);
     }
     const handleShow = () => setShow(true);
-
     return (
         <div>
             <Button variant="primary" onClick={handleShow}>
@@ -722,7 +663,7 @@ const Providers = (props) => {
                                 Наименование
                             </Form.Label>
                             <Col sm={9}>
-                                <Form.Control type="text" onChange={onFieldEdit} placeholder="Наименование" />
+                                <Form.Control type="text" placeholder="Наименование" />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="title">
@@ -730,7 +671,7 @@ const Providers = (props) => {
                                 Наименование в БД
                             </Form.Label>
                             <Col sm={9}>
-                                <Form.Control type="text" onChange={onFieldEdit} placeholder="Наименование в БД латинскими буквами"  />
+                                <Form.Control type="text" placeholder="Наименование в БД латинскими буквами" />
                             </Col>
                         </Form.Group>
 
@@ -799,7 +740,7 @@ const Providers = (props) => {
                                         Город
                                     </Form.Label>
                                     <Col sm={9}>
-                                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите город" />
+                                        <Form.Control type="text" placeholder="Введите город" />
                                     </Col>
                                 </Form.Group>
                                 <Form.Group className="mb-0" as={Row} controlId="oficeStreet">
@@ -807,7 +748,7 @@ const Providers = (props) => {
                                         Улица
                                     </Form.Label>
                                     <Col sm={9}>
-                                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите улицу" />
+                                        <Form.Control type="text" placeholder="Введите улицу" />
                                     </Col>
                                 </Form.Group>
                                 <Form.Group className="mb-0" as={Row} controlId="oficeHouse">
@@ -815,7 +756,7 @@ const Providers = (props) => {
                                         Дом
                                     </Form.Label>
                                     <Col sm={9}>
-                                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите номер дома" />
+                                        <Form.Control type="text" placeholder="Введите номер дома" />
                                     </Col>
                                 </Form.Group>
                                 <Form.Group as={Row} controlId="oficeRoom">
@@ -823,7 +764,7 @@ const Providers = (props) => {
                                         Помещение/Офис
                                     </Form.Label>
                                     <Col sm={9}>
-                                        <Form.Control type="text" onChange={onFieldEdit} placeholder="Введите номер помещения" />
+                                        <Form.Control type="text" placeholder="Введите номер помещения" />
                                     </Col>
                                 </Form.Group>
                                 <p className="text-center mb-1">График работы офиса</p>
@@ -964,7 +905,7 @@ const Providers = (props) => {
                                         Количество дней резерва
                                     </Form.Label>
                                     <Col sm={3}>
-                                        <Form.Control type="number" onChange={onFieldEdit} placeholder="" />
+                                        <Form.Control type="number" placeholder="" />
                                     </Col>
                                 </Form.Group>
                                 <br /> порядок забора товара
@@ -972,18 +913,16 @@ const Providers = (props) => {
                         </ListGroup>
 
                     </Form>
-                    {/* <Button type="submit">Войти</Button> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleCreate}>
+                    <Button variant="primary" onClick={handleClose}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <ProviderCreate />
         </div>
     );
 }

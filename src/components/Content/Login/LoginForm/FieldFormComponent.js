@@ -6,9 +6,14 @@ import Form from 'react-bootstrap/Form';
 export class FieldFormInput extends Component {
 
   render () {
+    //   console.log(this.props)
     const { placeholder, type, input, meta, required} = this.props;
 
-    const hasError = this.props.meta.error && this.props.meta.touched;
+    let hasError = false;
+    if (this.props.meta) {
+        hasError = this.props.meta.error && this.props.meta.touched;
+    }
+    
     const isRequired = () => {
         // console.log(required);
         if (required) {

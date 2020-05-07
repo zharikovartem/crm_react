@@ -15,14 +15,15 @@ const LoginForm = (props) => {
     // const [validated] = useState(true); // запускает проверку сразу
 
     const handleSubmit = (event) => {
-        console.log(props)
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        console.log(event)
+        // const form = event.currentTarget;
+        // if (form.checkValidity() === false) {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        // }
 
-        setValidated(true);
+        // setValidated(true);
+
     };
 
 
