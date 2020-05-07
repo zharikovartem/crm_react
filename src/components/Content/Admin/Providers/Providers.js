@@ -16,10 +16,108 @@ const Providers = (props) => {
         saturday: null,
         sunday: null
     });
+    const [timeToWorckWarhouse, checkTimeToWorckWarhouse] = useState({
+        monday: null,
+        tuesday: null,
+        wednesday: null,
+        thursday: null,
+        friday: null,
+        saturday: null,
+        sunday: null
+    });
+    const [warhouseTime, warhouseTrueTimeTo] = useState(false);
+    const [cash, checkCashTo] = useState(false);
+
+    const checkCash = (e) => {
+        checkCashTo(e.target.checked)
+    }
+
+    const warhouseTimeTrue = (e) => {
+        warhouseTrueTimeTo(e.target.checked)
+    }
+    let cashBlock = null;
+    if (cash) {
+        cashBlock = (
+            <ListGroup.Item>
+            <Form.Group as={Row} controlId="cashPayTypes">
+                <Form.Label column sm={4}>
+                    Наличные способы рассчета
+                </Form.Label>
+                <Col sm={3}>
+                <Form.Check
+                    className="mb-2"
+                    type="checkbox"
+                    label="BYN"
+                    name="payTypeBYN"
+                    id="payTypeBYN"
+                    />
+                <Form.Check
+                    className="mb-2"
+                    type="checkbox"
+                    label="USD"
+                    name="payTypeUSD"
+                    id="payTypeUSD"
+                    />
+                </Col>
+            </Form.Group>
+            </ListGroup.Item>
+        );
+    }
+
+    const checkNeedDayToWorckWarhousee = (e) => {
+        //////console.log(e.target.getAttribute('labelVel'));
+        let day = e.target.getAttribute('day');
+        let newState = { ...timeToWorckWarhouse };
+        if (newState[day] === null) {
+            newState[day] = e.target.getAttribute('labelVel');
+        } else {
+            newState[day] = null;
+        }
+        ////////console.log(newState)
+        checkTimeToWorckWarhouse(timeToWorckWarhouse => newState);
+    }
+    let timeToWorckWarhouseBlock = [];
+    for (var prop in timeToWorckWarhouse) {
+        if (timeToWorckWarhouse[prop] != null) {
+            timeToWorckWarhouseBlock.push(
+                <div>
+                    <Form.Row>
+                        <Col sm={4}>
+                            <Form.Label size="sm">
+                                {timeToWorckWarhouse[prop]}
+                            </Form.Label >
+                        </Col>
+                        <Col sm={1}>
+                            <Form.Label size="sm">
+                                С:
+                            </Form.Label >
+                        </Col>
+                        <Col sm={3}>
+                            <Form.Control size="sm" type="time" />
+                        </Col>
+                        <Col sm={1}>
+                            <Form.Label size="sm">
+                                До:
+                        </Form.Label>
+                        </Col>
+                        <Col sm={3}>
+                            <Form.Control size="sm" type="time" />
+                        </Col>
+                    </Form.Row>
+                </div>
+            );
+        } else {
+            timeToWorckWarhouseBlock.push(
+                <div>
+                   <Form.Label size="sm"></Form.Label >
+                </div>
+            );
+        }
+    }
 
 
     const checkNeedDayToWorckOfice = (e) => {
-        // console.log(e.target.getAttribute('labelVel'));
+        // //////console.log(e.target.getAttribute('labelVel'));
         let day = e.target.getAttribute('day');
         let newState = { ...timeToWorckOfice };
         if (newState[day] === null) {
@@ -27,10 +125,10 @@ const Providers = (props) => {
         } else {
             newState[day] = null;
         }
-        console.log(newState)
+        //////console.log(newState)
         checkTimeToWorckOfice(timeToWorckOfice => newState);
     }
-    console.log(timeToWorckOfice)
+    //////console.log(timeToWorckOfice)
     let timeToWorckOficeBlock = [];
     for (var prop in timeToWorckOfice) {
         if (timeToWorckOfice[prop] != null) {
@@ -69,9 +167,101 @@ const Providers = (props) => {
     }
 
     const warhouseTrue = (e) => {
-        // console.log(e.target.checked);
         warhouseTrueTo(e.target.checked)
     }
+    let warhouseTimeBlock = null;
+    if (warhouseTime) {
+        warhouseTimeBlock = (
+            <div>
+                <p className="text-center mb-1">График работы склада</p>
+                <fieldset>
+                    <Form.Group as={Row} controlId={'timeToWorckWarhousee'}>
+                        {/* <Form.Label column sm={3}>
+                                                Выберите день недели
+                                            </Form.Label> */}
+                        <Col sm={3}>
+                            <Form.Check
+                                className="mb-2"
+                                type="checkbox"
+                                label="Понедельник"
+                                labelVel="Понедельник"
+                                name="warhouseWorckDate"
+                                id="warhouseWorckDate2"
+                                day="monday"
+                                onClick={checkNeedDayToWorckWarhousee}
+                            />
+                            <Form.Check
+                                className="mb-2"
+                                type="checkbox"
+                                label="Вторник"
+                                labelVel="Вторник"
+                                name="warhouseWorckDate"
+                                id="warhouseWorckDate3"
+                                day="tuesday"
+                                onClick={checkNeedDayToWorckWarhousee}
+                            />
+                            <Form.Check
+                                className="mb-2"
+                                type="checkbox"
+                                label="Среда"
+                                labelVel="Среда"
+                                name="warhouseWorckDate"
+                                id="warhouseWorckDate4"
+                                day="wednesday"
+                                onClick={checkNeedDayToWorckWarhousee}
+                            />
+                            <Form.Check
+                                className="mb-2"
+                                type="checkbox"
+                                label="Четверг"
+                                labelVel="Четверг"
+                                name="warhouseWorckDate"
+                                id="warhouseWorckDate5"
+                                day="thursday"
+                                onClick={checkNeedDayToWorckWarhousee}
+                            />
+                            <Form.Check
+                                className="mb-2"
+                                type="checkbox"
+                                label="Пятница"
+                                labelVel="Пятница"
+                                name="warhouseWorckDate"
+                                id="warhouseWorckDate6"
+                                day="friday"
+                                onClick={checkNeedDayToWorckWarhousee}
+                            />
+                            <Form.Check
+                                className="mb-2"
+                                type="checkbox"
+                                label="Суббота"
+                                labelVel="Суббота"
+                                name="warhouseWorckDate"
+                                id="warhouseWorckDate7"
+                                day="saturday"
+                                onClick={checkNeedDayToWorckWarhousee}
+                            />
+                            <Form.Check
+                                className="mb-2"
+                                type="checkbox"
+                                label="Воскресенье"
+                                labelVel="Воскресенье"
+                                name="warhouseWorckDate"
+                                id="warhouseWorckDate8"
+                                day="sunday"
+                                onClick={checkNeedDayToWorckWarhousee}
+                            />
+                        </Col>
+                        <Col sm={9}>
+                            {timeToWorckWarhouseBlock}
+                        </Col>
+                    </Form.Group>
+                </fieldset>
+            </div>
+        );
+    }
+
+
+
     let warhouseBlock = null;
     if (warhouse) {
         warhouseBlock = (
@@ -114,7 +304,7 @@ const Providers = (props) => {
     }
 
     const choiseLoadPeriod = (e) => {
-        console.log(e.target.value);
+        //////console.log(e.target.value);
         choiseLoadPeriodTo(e.target.value);
     }
 
@@ -202,7 +392,7 @@ const Providers = (props) => {
     }
 
     const selectLoadType = (e) => {
-        console.log(e.target.value);
+        //////console.log(e.target.value);
         choisLoadType(e.target.value);
     }
     let loadTypeBlock = null;
@@ -579,20 +769,67 @@ const Providers = (props) => {
                                     </Form.Group>
                                 </fieldset>
 
-                                <Form.Group controlId="warhouseTrue">
-                                    <Form.Check type="checkbox" label="Склад в другом месте" onChange={warhouseTrue} />
-                                </Form.Group>
+
+                                <Form.Row>
+                                    <Col sm={6}>
+                                        <Form.Group controlId="warhouseTrue">
+                                            <Form.Check type="checkbox" label="Склад в другом месте" onChange={warhouseTrue} />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col sm={6}>
+                                        <Form.Group controlId="warhouseTimeTrue">
+                                            <Form.Check type="checkbox" label="Склад работает по другому графику" onChange={warhouseTimeTrue} />
+                                        </Form.Group>
+                                    </Col>
+                                </Form.Row>
+
                                 {warhouseBlock}
+                                {warhouseTimeBlock}
                             </ListGroup.Item>
                         </ListGroup>
 
-                        <br /> срок резерва
-                        <br /> способ оплаты
-                        <br /> график работы
-                        <br /> время работы
-                        <br /> обед
-                        <br /> порядок забора товара
-
+                        <ListGroup>
+                            <ListGroup.Item>
+                                <Form.Group as={Row} controlId="payType">
+                                    <Form.Label column sm={4}>
+                                        Способ оплаты
+                                    </Form.Label>
+                                    <Col sm={8}>
+                                    <Form.Check
+                                        className="mb-2"
+                                        type="checkbox"
+                                        label="Наличные"
+                                        name="payType"
+                                        id="payTypeCash"
+                                        onClick={checkCash}
+                                    />
+                                    <Form.Check
+                                        className="mb-2"
+                                        type="checkbox"
+                                        label="Безнал"
+                                        // labelVel="Вторник"
+                                        name="payType"
+                                        id="payTypeBank"
+                                        // day="tuesday"
+                                        // onClick={checkNeedDayToWorckOfice}
+                                    />
+                                    </Col>
+                                </Form.Group>
+                                {cashBlock}
+                                <Form.Group controlId="possibilityDeferredPayment">
+                                    <Form.Check type="checkbox" label="Возможность отсрочки платежа" onChange="" />
+                                </Form.Group>
+                                <Form.Group as={Row} controlId="reserveCount">
+                                    <Form.Label column sm={4}>
+                                        Количество дней резерва
+                                    </Form.Label>
+                                    <Col sm={3}>
+                                        <Form.Control type="number" placeholder="" />
+                                    </Col>
+                                </Form.Group>
+                                <br /> порядок забора товара
+                            </ListGroup.Item>
+                        </ListGroup>
 
                     </Form>
                 </Modal.Body>
