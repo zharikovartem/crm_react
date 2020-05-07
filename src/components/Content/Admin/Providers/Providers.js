@@ -1,10 +1,145 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Row, Col, DropdownButton, ButtonGroup, Dropdown, ListGroup } from 'react-bootstrap';
+import { Modal, Button, Form, Row, Col, DropdownButton, ButtonGroup, Dropdown, ListGroup, InputGroup } from 'react-bootstrap';
 
 const Providers = (props) => {
     const [show, setShow] = useState(false);
     const [contactType, addContactTypeTo] = useState([]);
     const [loadType, choisLoadType] = useState(null);
+    const [loadPeriod, choiseLoadPeriodTo] = useState(null);
+    const [warhouse, warhouseTrueTo] = useState(false);
+
+    const warhouseTrue = (e) => {
+        // console.log(e.target.checked);
+        warhouseTrueTo(e.target.checked)
+    }
+    let warhouseBlock = null;
+    if (warhouse) {
+        warhouseBlock = (
+            <div>
+                    <p className="text-center mb-1">Адрес склада</p>
+                    <Form.Group className="mb-0" as={Row} controlId="warhouseSity">
+                        <Form.Label column sm={3}>
+                            Город
+                        </Form.Label>
+                        <Col sm={9}>
+                            <Form.Control type="text" placeholder="Введите город" />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group className="mb-0" as={Row} controlId="warhouseStreet">
+                        <Form.Label column sm={3}>
+                            Улица
+                        </Form.Label>
+                        <Col sm={9}>
+                            <Form.Control type="text" placeholder="Введите улицу" />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group className="mb-0" as={Row} controlId="warhouseHouse">
+                        <Form.Label column sm={3}>
+                            Дом
+                        </Form.Label>
+                        <Col sm={9}>
+                            <Form.Control type="text" placeholder="Введите номер дома" />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="warhouseRoom">
+                        <Form.Label column sm={3}>
+                            Помещение/Офис
+                        </Form.Label>
+                        <Col sm={9}>
+                            <Form.Control type="text" placeholder="Введите номер помещения" />
+                        </Col>
+                    </Form.Group>
+            </div>
+        );
+    }
+
+    const choiseLoadPeriod = (e) => {
+        console.log(e.target.value);
+        choiseLoadPeriodTo(e.target.value);
+    }
+
+    let loadPeriodBlock = null;
+    if (loadPeriod === '1 раз в день') {
+        loadPeriodBlock = (
+            <div>
+                <Form.Group as={Row} controlId={'timeToGetPrice'}>
+                    <Form.Label column sm={3}>
+                        Время получения прайса
+                    </Form.Label>
+                    <Col sm={4}>
+                        <Form.Control type="time" />
+                    </Col>
+                    <Col sm={5}>
+                        {/* <Form.Control type="checkbox" /> */}
+                        если пустое то неопределино
+                    </Col>
+                </Form.Group>
+            </div>
+        );
+    }
+    if (loadPeriod === '1 раз в неделю') {
+        loadPeriodBlock = (
+            <div>
+                <fieldset>
+                <Form.Group as={Row} controlId={'timeToGetPrice'}>
+                    <Form.Label column sm={3}>
+                        Выберите день недели
+                    </Form.Label>
+                    <Col sm={9}>
+                        <Form.Check
+                            type="radio"
+                            label="Любой"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios1"
+                        />
+                        <Form.Check
+                            type="radio"
+                            label="понедельник"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios2"
+                        />
+                        <Form.Check
+                            type="radio"
+                            label="Вторник"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios3"
+                        />
+                        <Form.Check
+                            type="radio"
+                            label="Среда"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios4"
+                        />
+                        <Form.Check
+                            type="radio"
+                            label="Четверг"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios5"
+                        />
+                        <Form.Check
+                            type="radio"
+                            label="Пятница"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios6"
+                        />
+                        <Form.Check
+                            type="radio"
+                            label="Суббота"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios7"
+                        />
+                        <Form.Check
+                            type="radio"
+                            label="Воскресенье"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios8"
+                        />
+                    </Col>
+                </Form.Group>
+                </fieldset>
+            </div>
+        );
+    }
 
     const selectLoadType = (e) => {
         console.log(e.target.value);
@@ -13,18 +148,40 @@ const Providers = (props) => {
     let loadTypeBlock = null;
     if (loadType === 'Email') {
         loadTypeBlock = (
-            <Form.Group as={Row} controlId={'emailName'}>
-                <Form.Label column sm={3}>
-                    Email
-                </Form.Label>
-                <Col sm={9}>
-                    <Form.Control type="text" placeholder='Введите Email' />
-                </Col>
-            </Form.Group>
+            <div>
+                <Form.Group className="mb-0" as={Row} controlId={'emailName'}>
+                    <Form.Label column sm={3}>
+                        Email
+                    </Form.Label>
+                    <Col sm={9}>
+                        <InputGroup className="mb-3">
+                            <Form.Control type="text" placeholder='Введите Email' />
+                            <InputGroup.Append>
+                                <Button variant="outline-secondary">Список</Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} controlId={'priceNameKey'}>
+                    <Form.Label column sm={3}>
+                        Ключ навания прайса
+                    </Form.Label>
+                    <Col sm={9}>
+                        <InputGroup className="mb-3">
+                            <Form.Control type="text" placeholder='Введите название ' />
+                            <InputGroup.Append>
+                                <Button variant="outline-secondary">Варианты</Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </Col>
+                </Form.Group>
+                <br/> Получить список Имэйлов
+            </div>
         );
     }
     if (loadType === 'Parser') {
         loadTypeBlock = (
+            <div>
             <Form.Group as={Row} controlId={'parserName'}>
                 <Form.Label column sm={3}>
                     Parser
@@ -33,6 +190,36 @@ const Providers = (props) => {
                     <Form.Control type="text" placeholder='Введите Parser' />
                 </Col>
             </Form.Group>
+            <br/> Получить список Парсеров
+            </div>
+        );
+    }
+    if (loadType === 'FTP') {
+        loadTypeBlock = (
+            <div>
+                <Form.Group as={Row} controlId={'ftpUrl'}>
+                    <Form.Label column sm={3}>
+                        Ссылка на FTP
+                    </Form.Label>
+                    <Col sm={9}>
+                        <Form.Control type="text" placeholder='Введите URL' />
+                    </Col>
+                </Form.Group>
+            </div>
+        );
+    }
+    if (loadType === 'Google') {
+        loadTypeBlock = (
+            <div>
+                <Form.Group as={Row} controlId={'googleDocsURL'}>
+                    <Form.Label column sm={3}>
+                        Ссылка на Google docs
+                    </Form.Label>
+                    <Col sm={9}>
+                        <Form.Control type="text" placeholder='Введите URL Google docs' />
+                    </Col>
+                </Form.Group>
+            </div>
         );
     }
 
@@ -54,8 +241,7 @@ const Providers = (props) => {
             case 'Телефон':
                 p++;
                 return (
-                    <ListGroup.Item>
-
+                    <div>
                         <Form.Group className="mb-0" as={Row} controlId={'phoneCotact_' + p}>
                             <Form.Label column sm={3}>
                                 Номер телефона {p}
@@ -64,7 +250,7 @@ const Providers = (props) => {
                                 <Form.Control type="number" placeholder='Введите номер телефона' />
                             </Col>
                         </Form.Group>
-                        <Form.Group className="mb-0" as={Row} controlId={'cotact' + p + 'manager'}>
+                        <Form.Group as={Row} controlId={'cotact' + p + 'manager'}>
                             <Form.Label column sm={3}>
                                 Имя менеджера
                             </Form.Label>
@@ -72,58 +258,48 @@ const Providers = (props) => {
                                 <Form.Control type="text" placeholder='Введите имя менеджера' />
                             </Col>
                         </Form.Group>
-
-                    </ListGroup.Item>
+                    </div>
                 );
 
             case 'Skype':
                 s++;
                 return (
-                    <ListGroup.Item>
-                        {/* <p>Скайп {p}</p> */}
-                        <Form.Group as={Row} controlId={'skypeContact_' + s}>
-                            <Form.Label column sm={3}>
-                                Логин скайп {s}
-                            </Form.Label>
-                            <Col sm={9}>
-                                <Form.Control type="text" placeholder='Введите логин скайп' />
-                            </Col>
-                        </Form.Group>
-                    </ListGroup.Item>
+                    <Form.Group as={Row} controlId={'skypeContact_' + s}>
+                        <Form.Label column sm={3}>
+                            Логин скайп {s}
+                        </Form.Label>
+                        <Col sm={9}>
+                            <Form.Control type="text" placeholder='Введите логин скайп' />
+                        </Col>
+                    </Form.Group>
                 );
                 break;
 
             case 'Viber':
                 v++;
                 return (
-                    <ListGroup.Item>
-                        {/* <p>Скайп {p}</p> */}
-                        <Form.Group as={Row} controlId={'viberContact_' + v}>
-                            <Form.Label column sm={3}>
-                                Номер Viber {v}
-                            </Form.Label>
-                            <Col sm={9}>
-                                <Form.Control type="number" placeholder='Введите номер Viber' />
-                            </Col>
-                        </Form.Group>
-                    </ListGroup.Item>
+                    <Form.Group as={Row} controlId={'viberContact_' + v}>
+                        <Form.Label column sm={3}>
+                            Номер Viber {v}
+                        </Form.Label>
+                        <Col sm={9}>
+                            <Form.Control type="number" placeholder='Введите номер Viber' />
+                        </Col>
+                    </Form.Group>
                 );
                 break;
 
             case 'Telegram':
                 t++;
                 return (
-                    <ListGroup.Item>
-                        {/* <p>Скайп {p}</p> */}
-                        <Form.Group as={Row} controlId={'telegramContact_' + t}>
-                            <Form.Label column sm={3}>
-                                Номер Telegram {t}
-                            </Form.Label>
-                            <Col sm={9}>
-                                <Form.Control type="number" placeholder='Введите номер Telegram' />
-                            </Col>
-                        </Form.Group>
-                    </ListGroup.Item>
+                    <Form.Group as={Row} controlId={'telegramContact_' + t}>
+                        <Form.Label column sm={3}>
+                            Номер Telegram {t}
+                        </Form.Label>
+                        <Col sm={9}>
+                            <Form.Control type="number" placeholder='Введите номер Telegram' />
+                        </Col>
+                    </Form.Group>
                 );
                 break;
 
@@ -166,51 +342,114 @@ const Providers = (props) => {
                                 <Form.Control type="text" placeholder="Наименование в БД латинскими буквами" />
                             </Col>
                         </Form.Group>
-                        {/* <ListGroup> */}
-                            <Form.Group as={Row} controlId="loadType">
-                                <Form.Label column sm={3}>
-                                    Способ загрузки
-                                </Form.Label>
-                                <Col sm={9}>
-                                    <Form.Control as="select" custom onChange={selectLoadType}>
-                                        <option>Выберите способ</option>
-                                        <option>Email</option>
-                                        <option>Parser</option>
-                                        <option>FTP</option>
-                                        <option>Google</option>
-                                        <option>Skype</option>
-                                        <option>Telegram</option>
-                                        <option>В ручную</option>
-                                    </Form.Control>
-                                </Col>
-                            </Form.Group>
-                            {loadTypeBlock}
-                        {/* </ListGroup> */}
 
                         <ListGroup>
-                            {contactTypeBlock}
+                            <ListGroup.Item>
+                                <Form.Group as={Row} controlId="loadType">
+                                    <Form.Label column sm={3}>
+                                        Способ загрузки
+                                    </Form.Label>
+                                    <Col sm={9}>
+                                        <Form.Control as="select" custom onChange={selectLoadType}>
+                                            <option>Выберите способ загрузки прайса</option>
+                                            <option>Email</option>
+                                            <option>Parser</option>
+                                            <option>FTP</option>
+                                            <option>Google</option>
+                                            <option>Skype</option>
+                                            <option>Telegram</option>
+                                            <option>В ручную</option>
+                                        </Form.Control>
+                                    </Col>
+                                </Form.Group>
+                                {loadTypeBlock}
+                                <Form.Group as={Row} controlId="loadPeriod">
+                                    <Form.Label column sm={3}>
+                                        Частота загрузки
+                                    </Form.Label>
+                                    <Col sm={9}>
+                                        <Form.Control as="select" custom onChange={choiseLoadPeriod}>
+                                            <option>Выберите периодичность загрузи прайса</option>
+                                            <option>1 раз в день</option>
+                                            <option>1 раз в неделю</option>
+                                            <option>1 раз в месяц</option>
+                                            <option>более 1 раза в месяц</option>
+                                        </Form.Control>
+                                    </Col>
+                                </Form.Group>
+                                {loadPeriodBlock}
+                            </ListGroup.Item>
                         </ListGroup>
 
-                        <ButtonGroup size="sm">
-                            <DropdownButton size="sm" as={ButtonGroup} title="Добавить способ связи"
-                                onSelect={addContactType} id="bg-nested-dropdown">
-                                <Dropdown.Item size="sm" eventKey="Телефон">Телефон</Dropdown.Item>
-                                <Dropdown.Item size="sm" eventKey="Skype">Skype</Dropdown.Item>
-                                <Dropdown.Item size="sm" eventKey="Viber">Viber</Dropdown.Item>
-                                <Dropdown.Item size="sm" eventKey="Telegram">Telegram</Dropdown.Item>
-                            </DropdownButton>
-                            <Button size="sm" variant="danger" onClick={deleteLastContactType}>
-                                Удалить
-                            </Button>
-                        </ButtonGroup>
-                        
-                        <br/> частота получния прайса
-                        <br/> срок резерва
-                        <br/> способ оплаты
-                        <br/> адрес склада
-                        <br/> время работы 
-                        <br/> обед
-                        <br/> порядок забора товара
+                        <ListGroup>
+                            <ListGroup.Item>
+                                {contactTypeBlock}
+                                <ButtonGroup size="sm">
+                                    <DropdownButton size="sm" as={ButtonGroup} title="Добавить способ связи"
+                                        onSelect={addContactType} id="bg-nested-dropdown">
+                                        <Dropdown.Item size="sm" eventKey="Телефон">Телефон</Dropdown.Item>
+                                        <Dropdown.Item size="sm" eventKey="Skype">Skype</Dropdown.Item>
+                                        <Dropdown.Item size="sm" eventKey="Viber">Viber</Dropdown.Item>
+                                        <Dropdown.Item size="sm" eventKey="Telegram">Telegram</Dropdown.Item>
+                                    </DropdownButton>
+                                    <Button size="sm" variant="danger" onClick={deleteLastContactType}>
+                                        Удалить
+                                </Button>
+                                </ButtonGroup>
+                                <br /> Выбрать предпочтительный способ связи
+                            </ListGroup.Item>
+                        </ListGroup>
+
+                        <ListGroup>
+                            <ListGroup.Item>
+                            <p className="text-center mb-1">Адрес офиса</p>
+                                <Form.Group className="mb-0" as={Row} controlId="oficeSity">
+                                    <Form.Label column sm={3}>
+                                        Город
+                                    </Form.Label>
+                                    <Col sm={9}>
+                                        <Form.Control type="text" placeholder="Введите город" />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group className="mb-0" as={Row} controlId="oficeStreet">
+                                    <Form.Label column sm={3}>
+                                        Улица
+                                    </Form.Label>
+                                    <Col sm={9}>
+                                        <Form.Control type="text" placeholder="Введите улицу" />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group className="mb-0" as={Row} controlId="oficeHouse">
+                                    <Form.Label column sm={3}>
+                                        Дом
+                                    </Form.Label>
+                                    <Col sm={9}>
+                                        <Form.Control type="text" placeholder="Введите номер дома" />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} controlId="oficeRoom">
+                                    <Form.Label column sm={3}>
+                                        Помещение/Офис
+                                    </Form.Label>
+                                    <Col sm={9}>
+                                        <Form.Control type="text" placeholder="Введите номер помещения" />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group controlId="warhouseTrue">
+                                    <Form.Check type="checkbox" label="Склад в другом месте" onChange={warhouseTrue}/>
+                                </Form.Group>
+                                {warhouseBlock}
+                            </ListGroup.Item>
+                        </ListGroup>
+
+                        <br /> срок резерва
+                        <br /> способ оплаты
+                        <br /> адрес офиса
+                        <br /> адрес склада
+                        <br /> график работы
+                        <br /> время работы
+                        <br /> обед
+                        <br /> порядок забора товара
 
 
                     </Form>
