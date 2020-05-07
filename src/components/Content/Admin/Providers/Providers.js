@@ -7,6 +7,66 @@ const Providers = (props) => {
     const [loadType, choisLoadType] = useState(null);
     const [loadPeriod, choiseLoadPeriodTo] = useState(null);
     const [warhouse, warhouseTrueTo] = useState(false);
+    const [timeToWorckOfice, checkTimeToWorckOfice] = useState({
+        monday: null,
+        tuesday: null,
+        wednesday: null,
+        thursday: null,
+        friday: null,
+        saturday: null,
+        sunday: null
+    });
+
+
+    const checkNeedDayToWorckOfice = (e) => {
+        // console.log(e.target.getAttribute('labelVel'));
+        let day = e.target.getAttribute('day');
+        let newState = { ...timeToWorckOfice };
+        if (newState[day] === null) {
+            newState[day] = e.target.getAttribute('labelVel');
+        } else {
+            newState[day] = null;
+        }
+        console.log(newState)
+        checkTimeToWorckOfice(timeToWorckOfice => newState);
+    }
+    console.log(timeToWorckOfice)
+    let timeToWorckOficeBlock = [];
+    for (var prop in timeToWorckOfice) {
+        if (timeToWorckOfice[prop] != null) {
+            timeToWorckOficeBlock.push(
+                <div>
+                    <Form.Row>
+                        <Col sm={4}>
+                            <Form.Label size="sm">
+                                {timeToWorckOfice[prop]}
+                            </Form.Label >
+                        </Col>
+                        <Col sm={1}>
+                            <Form.Label size="sm">
+                                С:
+                        </Form.Label >
+                        </Col>
+                        <Col sm={3}>
+                            <Form.Control size="sm" type="time" />
+                        </Col>
+                        <Col sm={1}>
+                            <Form.Label size="sm">
+                                До:
+                        </Form.Label>
+                        </Col>
+                        <Col sm={3}>
+                            <Form.Control size="sm" type="time" />
+                        </Col>
+                    </Form.Row>
+                </div>
+            );
+        } else {
+            timeToWorckOficeBlock.push(
+                <div></div>
+            );
+        }
+    }
 
     const warhouseTrue = (e) => {
         // console.log(e.target.checked);
@@ -16,39 +76,39 @@ const Providers = (props) => {
     if (warhouse) {
         warhouseBlock = (
             <div>
-                    <p className="text-center mb-1">Адрес склада</p>
-                    <Form.Group className="mb-0" as={Row} controlId="warhouseSity">
-                        <Form.Label column sm={3}>
-                            Город
+                <p className="text-center mb-1">Адрес склада</p>
+                <Form.Group className="mb-0" as={Row} controlId="warhouseSity">
+                    <Form.Label column sm={3}>
+                        Город
                         </Form.Label>
-                        <Col sm={9}>
-                            <Form.Control type="text" placeholder="Введите город" />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group className="mb-0" as={Row} controlId="warhouseStreet">
-                        <Form.Label column sm={3}>
-                            Улица
+                    <Col sm={9}>
+                        <Form.Control type="text" placeholder="Введите город" />
+                    </Col>
+                </Form.Group>
+                <Form.Group className="mb-0" as={Row} controlId="warhouseStreet">
+                    <Form.Label column sm={3}>
+                        Улица
                         </Form.Label>
-                        <Col sm={9}>
-                            <Form.Control type="text" placeholder="Введите улицу" />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group className="mb-0" as={Row} controlId="warhouseHouse">
-                        <Form.Label column sm={3}>
-                            Дом
+                    <Col sm={9}>
+                        <Form.Control type="text" placeholder="Введите улицу" />
+                    </Col>
+                </Form.Group>
+                <Form.Group className="mb-0" as={Row} controlId="warhouseHouse">
+                    <Form.Label column sm={3}>
+                        Дом
                         </Form.Label>
-                        <Col sm={9}>
-                            <Form.Control type="text" placeholder="Введите номер дома" />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="warhouseRoom">
-                        <Form.Label column sm={3}>
-                            Помещение/Офис
+                    <Col sm={9}>
+                        <Form.Control type="text" placeholder="Введите номер дома" />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} controlId="warhouseRoom">
+                    <Form.Label column sm={3}>
+                        Помещение/Офис
                         </Form.Label>
-                        <Col sm={9}>
-                            <Form.Control type="text" placeholder="Введите номер помещения" />
-                        </Col>
-                    </Form.Group>
+                    <Col sm={9}>
+                        <Form.Control type="text" placeholder="Введите номер помещения" />
+                    </Col>
+                </Form.Group>
             </div>
         );
     }
@@ -81,61 +141,61 @@ const Providers = (props) => {
         loadPeriodBlock = (
             <div>
                 <fieldset>
-                <Form.Group as={Row} controlId={'timeToGetPrice'}>
-                    <Form.Label column sm={3}>
-                        Выберите день недели
+                    <Form.Group as={Row} controlId={'timeToGetPrice'}>
+                        <Form.Label column sm={3}>
+                            Выберите день недели
                     </Form.Label>
-                    <Col sm={9}>
-                        <Form.Check
-                            type="radio"
-                            label="Любой"
-                            name="formHorizontalRadios"
-                            id="formHorizontalRadios1"
-                        />
-                        <Form.Check
-                            type="radio"
-                            label="понедельник"
-                            name="formHorizontalRadios"
-                            id="formHorizontalRadios2"
-                        />
-                        <Form.Check
-                            type="radio"
-                            label="Вторник"
-                            name="formHorizontalRadios"
-                            id="formHorizontalRadios3"
-                        />
-                        <Form.Check
-                            type="radio"
-                            label="Среда"
-                            name="formHorizontalRadios"
-                            id="formHorizontalRadios4"
-                        />
-                        <Form.Check
-                            type="radio"
-                            label="Четверг"
-                            name="formHorizontalRadios"
-                            id="formHorizontalRadios5"
-                        />
-                        <Form.Check
-                            type="radio"
-                            label="Пятница"
-                            name="formHorizontalRadios"
-                            id="formHorizontalRadios6"
-                        />
-                        <Form.Check
-                            type="radio"
-                            label="Суббота"
-                            name="formHorizontalRadios"
-                            id="formHorizontalRadios7"
-                        />
-                        <Form.Check
-                            type="radio"
-                            label="Воскресенье"
-                            name="formHorizontalRadios"
-                            id="formHorizontalRadios8"
-                        />
-                    </Col>
-                </Form.Group>
+                        <Col sm={9}>
+                            <Form.Check
+                                type="radio"
+                                label="Любой"
+                                name="formHorizontalRadios"
+                                id="formHorizontalRadios1"
+                            />
+                            <Form.Check
+                                type="radio"
+                                label="понедельник"
+                                name="formHorizontalRadios"
+                                id="formHorizontalRadios2"
+                            />
+                            <Form.Check
+                                type="radio"
+                                label="Вторник"
+                                name="formHorizontalRadios"
+                                id="formHorizontalRadios3"
+                            />
+                            <Form.Check
+                                type="radio"
+                                label="Среда"
+                                name="formHorizontalRadios"
+                                id="formHorizontalRadios4"
+                            />
+                            <Form.Check
+                                type="radio"
+                                label="Четверг"
+                                name="formHorizontalRadios"
+                                id="formHorizontalRadios5"
+                            />
+                            <Form.Check
+                                type="radio"
+                                label="Пятница"
+                                name="formHorizontalRadios"
+                                id="formHorizontalRadios6"
+                            />
+                            <Form.Check
+                                type="radio"
+                                label="Суббота"
+                                name="formHorizontalRadios"
+                                id="formHorizontalRadios7"
+                            />
+                            <Form.Check
+                                type="radio"
+                                label="Воскресенье"
+                                name="formHorizontalRadios"
+                                id="formHorizontalRadios8"
+                            />
+                        </Col>
+                    </Form.Group>
                 </fieldset>
             </div>
         );
@@ -175,22 +235,22 @@ const Providers = (props) => {
                         </InputGroup>
                     </Col>
                 </Form.Group>
-                <br/> Получить список Имэйлов
+                <br /> Получить список Имэйлов
             </div>
         );
     }
     if (loadType === 'Parser') {
         loadTypeBlock = (
             <div>
-            <Form.Group as={Row} controlId={'parserName'}>
-                <Form.Label column sm={3}>
-                    Parser
+                <Form.Group as={Row} controlId={'parserName'}>
+                    <Form.Label column sm={3}>
+                        Parser
                 </Form.Label>
-                <Col sm={9}>
-                    <Form.Control type="text" placeholder='Введите Parser' />
-                </Col>
-            </Form.Group>
-            <br/> Получить список Парсеров
+                    <Col sm={9}>
+                        <Form.Control type="text" placeholder='Введите Parser' />
+                    </Col>
+                </Form.Group>
+                <br /> Получить список Парсеров
             </div>
         );
     }
@@ -402,7 +462,7 @@ const Providers = (props) => {
 
                         <ListGroup>
                             <ListGroup.Item>
-                            <p className="text-center mb-1">Адрес офиса</p>
+                                <p className="text-center mb-1">Адрес офиса</p>
                                 <Form.Group className="mb-0" as={Row} controlId="oficeSity">
                                     <Form.Label column sm={3}>
                                         Город
@@ -435,8 +495,92 @@ const Providers = (props) => {
                                         <Form.Control type="text" placeholder="Введите номер помещения" />
                                     </Col>
                                 </Form.Group>
+                                <p className="text-center mb-1">График работы офиса</p>
+                                <fieldset>
+                                    <Form.Group as={Row} controlId={'timeToWorckOfice'}>
+                                        {/* <Form.Label column sm={3}>
+                                            Выберите день недели
+                                        </Form.Label> */}
+                                        <Col sm={3}>
+                                            <Form.Check
+                                                className="mb-2"
+                                                type="checkbox"
+                                                label="Понедельник"
+                                                labelVel="Понедельник"
+                                                name="oficeWorckDate"
+                                                id="oficeWorckDate2"
+                                                day="monday"
+                                                onClick={checkNeedDayToWorckOfice}
+                                            />
+                                            <Form.Check
+                                                className="mb-2"
+                                                type="checkbox"
+                                                label="Вторник"
+                                                labelVel="Вторник"
+                                                name="oficeWorckDate"
+                                                id="oficeWorckDate3"
+                                                day="tuesday"
+                                                onClick={checkNeedDayToWorckOfice}
+                                            />
+                                            <Form.Check
+                                                className="mb-2"
+                                                type="checkbox"
+                                                label="Среда"
+                                                labelVel="Среда"
+                                                name="oficeWorckDate"
+                                                id="oficeWorckDate4"
+                                                day="wednesday"
+                                                onClick={checkNeedDayToWorckOfice}
+                                            />
+                                            <Form.Check
+                                                className="mb-2"
+                                                type="checkbox"
+                                                label="Четверг"
+                                                labelVel="Четверг"
+                                                name="oficeWorckDate"
+                                                id="oficeWorckDate5"
+                                                day="thursday"
+                                                onClick={checkNeedDayToWorckOfice}
+                                            />
+                                            <Form.Check
+                                                className="mb-2"
+                                                type="checkbox"
+                                                label="Пятница"
+                                                labelVel="Пятница"
+                                                name="oficeWorckDate"
+                                                id="oficeWorckDate6"
+                                                day="friday"
+                                                onClick={checkNeedDayToWorckOfice}
+                                            />
+                                            <Form.Check
+                                                className="mb-2"
+                                                type="checkbox"
+                                                label="Суббота"
+                                                labelVel="Суббота"
+                                                name="oficeWorckDate"
+                                                id="oficeWorckDate7"
+                                                day="saturday"
+                                                onClick={checkNeedDayToWorckOfice}
+                                            />
+                                            <Form.Check
+                                                className="mb-2"
+                                                type="checkbox"
+                                                label="Воскресенье"
+                                                labelVel="Воскресенье"
+                                                name="oficeWorckDate"
+                                                id="oficeWorckDate8"
+                                                day="sunday"
+                                                onClick={checkNeedDayToWorckOfice}
+                                            />
+                                        </Col>
+                                        <Col sm={9}>
+                                            {timeToWorckOficeBlock}
+                                        </Col>
+                                    </Form.Group>
+                                </fieldset>
+
                                 <Form.Group controlId="warhouseTrue">
-                                    <Form.Check type="checkbox" label="Склад в другом месте" onChange={warhouseTrue}/>
+                                    <Form.Check type="checkbox" label="Склад в другом месте" onChange={warhouseTrue} />
                                 </Form.Group>
                                 {warhouseBlock}
                             </ListGroup.Item>
@@ -444,8 +588,6 @@ const Providers = (props) => {
 
                         <br /> срок резерва
                         <br /> способ оплаты
-                        <br /> адрес офиса
-                        <br /> адрес склада
                         <br /> график работы
                         <br /> время работы
                         <br /> обед
