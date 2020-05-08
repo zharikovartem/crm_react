@@ -67,19 +67,15 @@ const Providers = (props) => {
         }
     }
 
-    console.log(data);
+    // 
 
     const handleCreate = () => {
-        let data = {
-            mame: 123,
-            title: 456,
-            contactType
-        }
         console.log(data);
     }
 
     const checkBank = (e) => {
-        console.log(e.target.checked)
+        // console.log(e.target.checked)
+        onFieldEdit(e)
         checkBankTo(e.target.checked)
     }
     let bankBlock = null;
@@ -158,6 +154,7 @@ const Providers = (props) => {
     }
 
     const checkCash = (e) => {
+        onFieldEdit(e)
         checkCashTo(e.target.checked)
     }
 
@@ -283,7 +280,9 @@ const Providers = (props) => {
                         </Form.Label >
                         </Col>
                         <Col sm={3}>
-                            <Form.Control size="sm" type="time" onChange={onFieldEdit} />
+                            <Form.Group controlId={'ofice_start_'+prop}>
+                                <Form.Control size="sm" type="time" onChange={onFieldEdit} />
+                            </Form.Group>
                         </Col>
                         <Col sm={1}>
                             <Form.Label size="sm">
@@ -291,7 +290,9 @@ const Providers = (props) => {
                         </Form.Label>
                         </Col>
                         <Col sm={3}>
-                            <Form.Control size="sm" type="time" onChange={onFieldEdit} />
+                            <Form.Group controlId={'ofice_stop_'+prop}>
+                                <Form.Control size="sm" type="time" onChange={onFieldEdit} />
+                            </Form.Group>
                         </Col>
                     </Form.Row>
                 </div>
@@ -324,7 +325,7 @@ const Providers = (props) => {
                                 label="Понедельник"
                                 labelVel="Понедельник"
                                 name="warhouseWorckDate"
-                                id="warhouseWorckDate2"
+                                id="warhouseWorckDate_monday"
                                 day="monday"
                                 onClick={checkNeedDayToWorckWarhousee}
                             />
@@ -334,7 +335,7 @@ const Providers = (props) => {
                                 label="Вторник"
                                 labelVel="Вторник"
                                 name="warhouseWorckDate"
-                                id="warhouseWorckDate3"
+                                id="warhouseWorckDate_tuesday"
                                 day="tuesday"
                                 onClick={checkNeedDayToWorckWarhousee}
                             />
@@ -344,7 +345,7 @@ const Providers = (props) => {
                                 label="Среда"
                                 labelVel="Среда"
                                 name="warhouseWorckDate"
-                                id="warhouseWorckDate4"
+                                id="warhouseWorckDate_wednesday"
                                 day="wednesday"
                                 onClick={checkNeedDayToWorckWarhousee}
                             />
@@ -354,7 +355,7 @@ const Providers = (props) => {
                                 label="Четверг"
                                 labelVel="Четверг"
                                 name="warhouseWorckDate"
-                                id="warhouseWorckDate5"
+                                id="warhouseWorckDate_thursday"
                                 day="thursday"
                                 onClick={checkNeedDayToWorckWarhousee}
                             />
@@ -364,7 +365,7 @@ const Providers = (props) => {
                                 label="Пятница"
                                 labelVel="Пятница"
                                 name="warhouseWorckDate"
-                                id="warhouseWorckDate6"
+                                id="warhouseWorckDate_friday"
                                 day="friday"
                                 onClick={checkNeedDayToWorckWarhousee}
                             />
@@ -374,7 +375,7 @@ const Providers = (props) => {
                                 label="Суббота"
                                 labelVel="Суббота"
                                 name="warhouseWorckDate"
-                                id="warhouseWorckDate7"
+                                id="warhouseWorckDate_saturday"
                                 day="saturday"
                                 onClick={checkNeedDayToWorckWarhousee}
                             />
@@ -384,7 +385,7 @@ const Providers = (props) => {
                                 label="Воскресенье"
                                 labelVel="Воскресенье"
                                 name="warhouseWorckDate"
-                                id="warhouseWorckDate8"
+                                id="warhouseWorckDate_sunday"
                                 day="sunday"
                                 onClick={checkNeedDayToWorckWarhousee}
                             />
@@ -473,13 +474,14 @@ const Providers = (props) => {
                     <Form.Group as={Row} controlId={'timeToGetPrice'}>
                         <Form.Label column sm={3}>
                             Выберите день недели
-                    </Form.Label>
+                        </Form.Label>
                         <Col sm={9}>
                             <Form.Check
                                 type="radio"
                                 label="Любой"
                                 name="formHorizontalRadios"
-                                id="formHorizontalRadios1"
+                                id="loadAnytime"
+                                onChange={onFieldEdit}
                             />
                             <Form.Check
                                 type="radio"
@@ -839,7 +841,7 @@ const Providers = (props) => {
                                                 label="Понедельник"
                                                 labelVel="Понедельник"
                                                 name="oficeWorckDate"
-                                                id="oficeWorckDate2"
+                                                id="oficeWorckDate_monday"
                                                 day="monday"
                                                 onClick={checkNeedDayToWorckOfice}
                                             />
@@ -849,7 +851,7 @@ const Providers = (props) => {
                                                 label="Вторник"
                                                 labelVel="Вторник"
                                                 name="oficeWorckDate"
-                                                id="oficeWorckDate3"
+                                                id="oficeWorckDate_tuesday"
                                                 day="tuesday"
                                                 onClick={checkNeedDayToWorckOfice}
                                             />
@@ -859,7 +861,7 @@ const Providers = (props) => {
                                                 label="Среда"
                                                 labelVel="Среда"
                                                 name="oficeWorckDate"
-                                                id="oficeWorckDate4"
+                                                id="oficeWorckDate_wednesday"
                                                 day="wednesday"
                                                 onClick={checkNeedDayToWorckOfice}
                                             />
@@ -869,7 +871,7 @@ const Providers = (props) => {
                                                 label="Четверг"
                                                 labelVel="Четверг"
                                                 name="oficeWorckDate"
-                                                id="oficeWorckDate5"
+                                                id="oficeWorckDate_thursday"
                                                 day="thursday"
                                                 onClick={checkNeedDayToWorckOfice}
                                             />
@@ -879,7 +881,7 @@ const Providers = (props) => {
                                                 label="Пятница"
                                                 labelVel="Пятница"
                                                 name="oficeWorckDate"
-                                                id="oficeWorckDate6"
+                                                id="oficeWorckDate_friday"
                                                 day="friday"
                                                 onClick={checkNeedDayToWorckOfice}
                                             />
@@ -889,7 +891,7 @@ const Providers = (props) => {
                                                 label="Суббота"
                                                 labelVel="Суббота"
                                                 name="oficeWorckDate"
-                                                id="oficeWorckDate7"
+                                                id="oficeWorckDate_saturday"
                                                 day="saturday"
                                                 onClick={checkNeedDayToWorckOfice}
                                             />
@@ -899,7 +901,7 @@ const Providers = (props) => {
                                                 label="Воскресенье"
                                                 labelVel="Воскресенье"
                                                 name="oficeWorckDate"
-                                                id="oficeWorckDate8"
+                                                id="oficeWorckDate_sunday"
                                                 day="sunday"
                                                 onClick={checkNeedDayToWorckOfice}
                                             />
@@ -957,7 +959,7 @@ const Providers = (props) => {
                                 {cashBlock}
                                 {bankBlock}
                                 <Form.Group controlId="possibilityDeferredPayment">
-                                    <Form.Check type="checkbox" label="Возможность отсрочки платежа" onChange="" />
+                                    <Form.Check type="checkbox" label="Возможность отсрочки платежа" onChange={onFieldEdit} />
                                 </Form.Group>
                                 <Form.Group as={Row} controlId="reserveCount">
                                     <Form.Label column sm={4}>
